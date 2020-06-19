@@ -1,0 +1,15 @@
+CREATE TABLE `postTable` (
+  `no` INT NOT NULL AUTO_INCREMENT,
+  `category_no` INT NOT NULL,
+  `post_title` VARCHAR(45) NOT NULL,
+  `body` TEXT(5000) NULL,
+  `commnets` INT NOT NULL,
+  `id` VARCHAR(20) NOT NULL,
+  `post_create_time` DATETIME NOT NULL,
+  `post_revision_time` DATETIME NOT NULL,
+  `post_delete_time` DATETIME NULL,
+  `views` INT NOT NULL,
+  `recommends` INT NOT NULL,
+  `Declarations` INT NOT NULL,
+  PRIMARY KEY (`no`),
+  UNIQUE INDEX `no_UNIQUE` (`no` ASC) VISIBLE);
