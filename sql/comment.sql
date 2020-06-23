@@ -1,11 +1,12 @@
-CREATE TABLE `commentTable` (
-  `no` INT NOT NULL AUTO_INCREMENT,
-  `post_no` INT NOT NULL,
-  `id` VARCHAR(20) NOT NULL,
-  `comment_create_time` DATETIME NOT NULL,
-  `comment_revision_time` DATETIME NOT NULL,
-  `commnet_delete_time` DATETIME NULL,
-  `comment_body` VARCHAR(100) NULL,
-  `comment_answer` INT NOT NULL,
+CREATE TABLE `commenttable` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `post_no` int NOT NULL,
+  `id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment_body` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comment_answer` int NOT NULL,
+  `comment_create_time` datetime NOT NULL,
+  `comment_revision_time` datetime NOT NULL,
+  `commnet_delete_time` datetime DEFAULT NULL,
   PRIMARY KEY (`no`),
-  UNIQUE INDEX `no_UNIQUE` (`no` ASC) VISIBLE);
+  UNIQUE KEY `no_UNIQUE` (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

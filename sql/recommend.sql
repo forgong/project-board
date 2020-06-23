@@ -1,8 +1,9 @@
-CREATE TABLE `test_projectboard`.`recommendtable` (
-  `no` INT NOT NULL AUTO_INCREMENT,
-  `post_no` INT NOT NULL,
-  `id` VARCHAR(20) NOT NULL,
-  `recommend_time` DATETIME NOT NULL,
-  `recommend_delete_time` DATETIME NULL,
+CREATE TABLE `recommendtable` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `post_no` int NOT NULL,
+  `id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `recommend_time` datetime NOT NULL,
+  `recommend_delete_time` datetime DEFAULT NULL,
   PRIMARY KEY (`no`),
-  UNIQUE INDEX `no_UNIQUE` (`no` ASC) VISIBLE);
+  UNIQUE KEY `no_UNIQUE` (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

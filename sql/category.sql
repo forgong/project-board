@@ -1,6 +1,7 @@
-CREATE TABLE `categoryTable` (
-  `no` INT NOT NULL AUTO_INCREMENT,
-  `category` VARCHAR(45) NOT NULL,
+CREATE TABLE `categorytable` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `category` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`no`),
-  UNIQUE INDEX `no_UNIQUE` (`no` ASC) VISIBLE,
-  UNIQUE INDEX `category_UNIQUE` (`category` ASC) VISIBLE);
+  UNIQUE KEY `category_UNIQUE` (`category`),
+  UNIQUE KEY `no_UNIQUE` (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
