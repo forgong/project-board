@@ -1,10 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../lib/db');
+const template = require('../lib/template');
 
 router.get('/', function (req, res) {
     console.log(req.session.loginId);
-    res.render('index');
+    var authStatusUI = template.authStatusUI(req,res);
+    db.query(`select * from categorytable`, function(err,resultCategory){
+        var categoryList = template.categoryList(resultCategory);
+        res.render('index', {
+            authStatusUI,
+            categoryList
+        });
+    })
 })
 
 router.get('/signup', function (req, res){
@@ -45,4 +53,9 @@ router.post('/login_process', function (req, res){
     })
 })
 
+router.get('/logout_process', function (req, res){
+    req.session.destroy(function(err){
+        res.redirect('/');
+    })
+})
 module.exports = router;
