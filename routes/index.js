@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const login = require('../lib/login');
+const list = require('../lib/list');
 const db = require('../lib/db');
-const template = require('../lib/template');
 
 router.get('/', function (req, res) {
-    console.log(req.session.loginId);
-    var authStatusUI = template.authStatusUI(req,res);
-    db.query(`select * from categorytable`, function(err,resultCategory){
-        var categoryList = template.categoryList(resultCategory);
+    console.log('join id :  ' + req.session.loginId);
+    db.query(`select * from categorytable`, function (err,resultCategory){
+        var categoryList = list.categoryList(resultCategory);
+        var loginUI = login.loginUI(req,res);
         res.render('index', {
-            authStatusUI,
+            loginUI,
             categoryList
         });
     })
@@ -58,4 +59,32 @@ router.get('/logout_process', function (req, res){
         res.redirect('/');
     })
 })
+
+router.get('/postCreate', function (req, res){
+    if(req.session.loginId != undefined){
+        db.query(`select * from categoryTable`, function(err, resultCategory){
+            var categorySelect = list.categorySelect(resultCategory);
+            res.render('postCreate', {
+                categorySelect
+            });
+        })
+    }
+    else {
+        res.redirect('/login')
+    }
+})
+
+router.post('/postCreate_process', function (req, res){
+    let ctr = req.body;
+    db.query(`insert into posttable (category_no, post_title, body, comments, id, views, recommends, Declarations, post_create_time, post_revision_time) value (?,?,?,0,?,0,0,0,now(),now())`, [ctr.category_no, ctr.post_title, ctr.post_body, req.session.loginId], function(err,result){
+        if(err){
+            throw err;
+        }
+        else {
+            res.json({"msg" : "success"});
+            console.log(req.session.loginId + ' postCreate !!!');
+        }
+    })
+})
+
 module.exports = router;

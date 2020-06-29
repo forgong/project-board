@@ -1,14 +1,18 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <title>index</title>
     <meta charset="utf-8">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <h1>board</h1>
-    <%- authStatusUI %>
+    <%- loginUI %>
     <a href="/userinfo">my subscription</a>
-    <%- categoryList %>
+    <div>
+        <%- categoryList %>
+        <button type="button"><a href="/postCreate">글쓰기</a></button>
+    </div>
     
 </body>
 </html>

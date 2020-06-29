@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <title>postCreate</title>
+    <meta charset="utf-8">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>글쓰기</h1>
+    <div>
+        <p>게시판 <%- categorySelect %></p>
+        <p>제목 <input type="text" id="post_title" placeholder="게시글 제목을 입력하세요"></p>
+        <p>본문</p>
+        <textarea id="post_body"></textarea>
+        <p><button type="submit" id="post">글쓰기</button></p>
+    </div>
+    <script src="/js/postCreate.js"></script>
+</body>
+</html>
