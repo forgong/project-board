@@ -3,16 +3,21 @@ const router = express.Router();
 const login = require('../lib/login');
 const list = require('../lib/list');
 const db = require('../lib/db');
+const path = require('path');
 
 router.get('/', function (req, res) {
     console.log('join id :  ' + req.session.loginId);
-    db.query(`select * from categorytable`, function (err,resultCategory){
+    db.query(`select * from categoryTable`, function (err,resultCategory){
         var categoryList = list.categoryList(resultCategory);
         var loginUI = login.loginUI(req,res);
-        res.render('index', {
-            loginUI,
-            categoryList
-        });
+        db.query(`select * from postTable`, function(err, resultpost){
+            var postList = list.postList(resultpost)
+            res.render('index', {
+                loginUI,
+                categoryList,
+                postList
+            });
+        })
     })
 })
 
@@ -85,6 +90,14 @@ router.post('/postCreate_process', function (req, res){
             console.log(req.session.loginId + ' postCreate !!!');
         }
     })
+})
+
+router.get('/:pageId', function(req, res){
+    var postTable_no = path.parse(req.params.pageId).base;
+    db.query(`select * from postTable where no=?`, [postTable_no], function (err, result){
+        console.log(result)
+    })
+    res.send('asdasd');
 })
 
 module.exports = router;
