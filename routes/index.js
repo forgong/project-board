@@ -4,12 +4,14 @@ const login = require('../lib/login');
 const list = require('../lib/list');
 const db = require('../lib/db');
 const path = require('path');
+const dd = require('../model/dbquery');
+
 
 router.get('/', function (req, res) {
     console.log('join id :  ' + req.session.loginId);
+    var loginUI = login.loginUI(req,res);
     db.query(`select * from categoryTable`, function (err,resultCategory){
         var categoryList = list.categoryList(resultCategory);
-        var loginUI = login.loginUI(req,res);
         db.query(`select * from postTable`, function(err, resultpost){
             var postList = list.postList(resultpost)
             res.render('index', {
@@ -83,7 +85,7 @@ router.post('/postCreate_process', function (req, res){
     let ctr = req.body;
     db.query(`insert into posttable (category_no, post_title, body, comments, id, views, recommends, Declarations, post_create_time, post_revision_time) value (?,?,?,0,?,0,0,0,now(),now())`, [ctr.category_no, ctr.post_title, ctr.post_body, req.session.loginId], function(err,result){
         if(err){
-            throw err;
+            res.json({"msg" : "error"});
         }
         else {
             res.json({"msg" : "success"});
@@ -92,12 +94,22 @@ router.post('/postCreate_process', function (req, res){
     })
 })
 
-router.get('/:pageId', function(req, res){
-    var postTable_no = path.parse(req.params.pageId).base;
-    db.query(`select * from postTable where no=?`, [postTable_no], function (err, result){
-        console.log(result)
+router.get('/page:pageId', function(req, res){
+    var loginUI = login.loginUI(req,res);
+    var category_no = path.parse(req.params.pageId).base;
+    db.query(`select * from categoryTable`, function (err,resultCategory){
+        var categoryList = list.categoryList(resultCategory);
+        var categoryTitle = resultCategory[category_no-1].category;
+        db.query(`select * from postTable where category_no=?`, [category_no], function (err, resultpost){
+            var postList = list.postList(resultpost)
+            res.render('category', {
+                loginUI,
+                categoryList,
+                categoryTitle,
+                postList,
+            });
+        })
     })
-    res.send('asdasd');
 })
 
 module.exports = router;

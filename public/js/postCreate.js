@@ -22,7 +22,7 @@ $("#post").on("click", function (){
                 alert('글쓰기 완료');
                 window.location.href = '/'
             } else {
-                alert('제대로 입력하세요');
+                alert('다시 확인해주세요');
             }
         }
     })
