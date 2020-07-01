@@ -21,7 +21,7 @@ $("#post").on("click", function (){
             if(result.msg == "success"){
                 alert('글쓰기 완료');
                 window.location.href = '/'
-            } else {
+            } else if(result.msg == "failed"){
                 alert('다시 확인해주세요');
             }
         }

@@ -19,8 +19,8 @@ $("#create").on("click", function (){
             if(result.msg == "success"){
                 alert('생성완료');
                 window.location.href = '/login'
-            } else {
-                alert('제대로 입력하세요');
+            } else if(result.msg == "failed"){
+                alert('아이디 사용불가');
             }
         }
     })

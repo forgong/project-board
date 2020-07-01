@@ -19,8 +19,10 @@ $("#login").on("click", function (){
             if(result.msg == "success"){
                 alert('로그인완료');
                 window.location.href = '/'
-            } else {
-                alert('제대로 입력하세요');
+            } else if(result.msg == "failed"){
+                alert('아이디 & 비밀번호를 다시 확인하세요');
+            } else if(result.msg == "error"){
+                alert('서버 에러');
             }
         }
     })
